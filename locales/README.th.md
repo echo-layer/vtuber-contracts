@@ -19,14 +19,17 @@
 
 [ [English](../README.md) | ภาษาไทย | [日本語](./README.ja.md) | [简体中文](./locales/README.zh.md) ]
 
-> [AI: TRANSLATE the professional tagline/description into THAI here]
-vtuber-contracts is the build-time source of truth for all inter-service typed boundaries in the vtuber-* program. It defines proto3 schemas for messages such as ConversationDirective, VoiceProfile, and Persona, then runs codegen to publish a Rust crate, Python typed stubs (.pyi), and TypeScript declaration files consumed by every other vtuber-* repo and by the public SDK shipped through vtuber-api.
+vtuber-contracts เป็น build-time source of truth สำหรับ typed boundary ทุกตัวระหว่าง service ในโปรแกรม vtuber-* — นิยาม proto3 schema สำหรับ message อย่าง ConversationDirective, VoiceProfile และ Persona แล้ว codegen ออกเป็น Rust crate, Python typed stub (.pyi), และ TypeScript declaration file ที่ทุก vtuber-* repo รวมถึง public SDK ของ vtuber-api ใช้ร่วมกัน
 
 ## ✨ ฟีเจอร์เด่น (Features)
-> [AI: TRANSLATE all 3 Features into THAI here]
+- 🚀 **proto3 schema สำหรับ inter-service message ทั้งหมด (ConversationDirective, VoiceProfile, Persona, StreamEvent, ToolCall) ภายใต้ package path ที่เสถียร**
+- 🛡️ **Pipeline การทำ codegen หลายภาษา — Rust crate, Python typed stub (.pyi ผ่าน mypy-protobuf), และ TypeScript declaration file (ผ่าน ts-proto)**
+- 📊 **บังคับ semver ต่อ .proto package ด้วย buf breaking-change linter ผูกเข้า CI เป็น hard gate**
 
 ## 🛠️ เริ่มต้นใช้งาน (Quick Start)
-> [AI: TRANSLATE getting_started_instructions into THAI here]
+```bash
+# ติดตั้ง Rust toolchain (rustup) และ buf CLI (https://buf.build/docs/installation) จากนั้นรัน cargo build && buf generate เพื่อสร้าง binding ภาษา Rust, Python และ TypeScript ไว้ใต้ generated/
+```
 
 ## 🗺️ การนำทาง (Navigation)
 - 🏗️ **[สถาปัตยกรรม (Architecture)](../ARCHITECTURE.md)**

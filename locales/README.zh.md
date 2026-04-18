@@ -19,14 +19,17 @@
 
 [ [English](../README.md) | [ภาษาไทย](./README.th.md) | [日本語](./README.ja.md) | 简体中文 ]
 
-> [AI: TRANSLATE the professional tagline/description into SIMPLIFIED CHINESE here]
-vtuber-contracts is the build-time source of truth for all inter-service typed boundaries in the vtuber-* program. It defines proto3 schemas for messages such as ConversationDirective, VoiceProfile, and Persona, then runs codegen to publish a Rust crate, Python typed stubs (.pyi), and TypeScript declaration files consumed by every other vtuber-* repo and by the public SDK shipped through vtuber-api.
+vtuber-contracts 是 vtuber-* 程序中所有服务间类型化边界的构建期真相源 —— 为 ConversationDirective、VoiceProfile、Persona 等消息定义 proto3 schema,然后通过 codegen 生成 Rust crate、Python 类型存根 (.pyi) 与 TypeScript 声明文件,供所有其他 vtuber-* 仓库以及经由 vtuber-api 发布的公共 SDK 使用。
 
 ## ✨ 特性 (Features)
-> [AI: TRANSLATE all 3 Features into SIMPLIFIED CHINESE here]
+- 🚀 **为所有服务间消息 (ConversationDirective / VoiceProfile / Persona / StreamEvent / ToolCall) 提供稳定 package 路径下的 proto3 schema**
+- 🛡️ **多语言 codegen 管线 —— 生成 Rust crate、Python 类型存根 (.pyi via mypy-protobuf) 与 TypeScript 声明文件 (via ts-proto)**
+- 📊 **按 .proto package 强制执行 semver —— 将 buf breaking-change linter 作为 CI 硬性闸门**
 
 ## 🛠️ 快速开始 (Quick Start)
-> [AI: TRANSLATE getting_started_instructions into SIMPLIFIED CHINESE here]
+```bash
+# 安装 Rust toolchain (rustup) 与 buf CLI (https://buf.build/docs/installation),然后运行 cargo build && buf generate,即可在 generated/ 目录下生成 Rust / Python / TypeScript 绑定
+```
 
 ## 🗺️ 导航 (Navigation)
 - 🏗️ **[架构 (Architecture)](../ARCHITECTURE.md)**
