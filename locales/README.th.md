@@ -17,7 +17,7 @@
 
 ---
 
-[ [English](../README.md) | ภาษาไทย | [日本語](./README.ja.md) | [简体中文](./locales/README.zh.md) ]
+[ [English](../README.md) | ภาษาไทย | [日本語](./README.ja.md) | [简体中文](./README.zh.md) ]
 
 vtuber-contracts เป็น build-time source of truth สำหรับ typed boundary ทุกตัวระหว่าง service ในโปรแกรม vtuber-* — นิยาม proto3 schema สำหรับ message อย่าง ConversationDirective, VoiceProfile และ Persona แล้ว codegen ออกเป็น Rust crate, Python typed stub (.pyi), และ TypeScript declaration file ที่ทุก vtuber-* repo รวมถึง public SDK ของ vtuber-api ใช้ร่วมกัน
 
