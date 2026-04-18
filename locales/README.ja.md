@@ -4,8 +4,8 @@
 
 **Build-time typed interface contracts (proto3) for the vtuber-* program — generates a Rust crate, Python typed stubs, and TypeScript declarations consumed by every other vtuber-* repo to prevent contract drift across 17 services.**
 
-[![CI](https://github.com/cntm-labs/vtuber-contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/cntm-labs/vtuber-contracts/actions/workflows/ci.yml)
-[![Security](https://github.com/cntm-labs/vtuber-contracts/actions/workflows/security.yml/badge.svg)](https://github.com/cntm-labs/vtuber-contracts/actions/workflows/security.yml)
+[![CI](https://github.com/echo-layer/vtuber-contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/echo-layer/vtuber-contracts/actions/workflows/ci.yml)
+[![Security](https://github.com/echo-layer/vtuber-contracts/actions/workflows/security.yml/badge.svg)](https://github.com/echo-layer/vtuber-contracts/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-active-success)](./)
 
