@@ -53,6 +53,7 @@ fn conversation_directive_roundtrip() {
         emotion: Emotion::Analytical as i32,
         target_audio_format: AudioFormat::Opus as i32,
         max_latency_ms: 800,
+        tool_calls: vec![],
     };
     let decoded = ConversationDirective::decode(original.encode_to_vec().as_slice()).unwrap();
     assert_eq!(original, decoded);

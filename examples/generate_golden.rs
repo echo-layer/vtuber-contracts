@@ -19,6 +19,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         emotion: Emotion::Happy as i32,
         target_audio_format: AudioFormat::Wav as i32,
         max_latency_ms: 500,
+        tool_calls: vec![],
     };
 
     let mut buf = Vec::new();
