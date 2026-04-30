@@ -80,6 +80,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: results.sarif
+        continue-on-error: true # Allow CI to pass even if GitHub Advanced Security is not enabled
 
   
   mojo-security:
