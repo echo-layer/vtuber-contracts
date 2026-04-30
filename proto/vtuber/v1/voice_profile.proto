@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package vtuber.v1;
+
+import "vtuber/v1/persona.proto";
+
+// AudioFormat enumerates the encodings the Performer can stream.
+enum AudioFormat {
+  AUDIO_FORMAT_UNSPECIFIED = 0;
+  AUDIO_FORMAT_WAV = 1;
+  AUDIO_FORMAT_OPUS = 2;
+  AUDIO_FORMAT_MP3 = 3;
+}
+
+// Emotion is the closed set of emotions a persona can be primed with on a
+// given turn. Additional variants are appended at the end — never renumber.
+enum Emotion {
+  EMOTION_UNSPECIFIED = 0;
+  EMOTION_NEUTRAL = 1;
+  EMOTION_HAPPY = 2;
+  EMOTION_SAD = 3;
+  EMOTION_ANGRY = 4;
+  EMOTION_PLAYFUL = 5;
+  EMOTION_ANALYTICAL = 6;
+  EMOTION_ASMR_CALM = 7;
+}
+
+// VoiceProfile is the static voice fingerprint of a persona. base_pitch,
+// speaking_rate, and energy feed directly into the Performer's prosody
+// layer. style_tag and accent_hint are free-form priming seeds. quirks is
+// a small catalog of verbal tics the Performer injects probabilistically.
+message VoiceProfile {
+  PersonaId persona_id = 1;
+  // Pitch offset in the range -1.0..1.0, where 0.0 is natural pitch.
+  float base_pitch = 2;
+  // Rate multiplier in the range 0.5..2.0, where 1.0 is natural speed.
+  float speaking_rate = 3;
+  // Vocal energy in the range 0.0..1.0, where 0.0 is monotone.
+  float energy = 4;
+  // Free-form style tag for TTS priming ("asmr", "chipper", "deadpan"...).
+  string style_tag = 5;
+  // Free-form accent hint ("russian", "british", "thai-northern"...).
+  string accent_hint = 6;
+  // Verbal tics and filler phrases.
+  repeated string quirks = 7;
+}

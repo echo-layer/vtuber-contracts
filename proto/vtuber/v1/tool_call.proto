@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package vtuber.v1;
+
+import "google/protobuf/struct.proto";
+
+// ToolCall represents a request from the Director (vtuber-brain) to execute
+// a specific function. In the Hybrid model, these are embedded in the
+// ConversationDirective for execution by the Performer or handled internally.
+message ToolCall {
+  // Unique identifier for this call. Used to correlate with ToolResponse.
+  string call_id = 1;
+  
+  // The name of the tool to be called (e.g., "animate", "play_sound", "web_search").
+  string name = 2;
+  
+  // Arguments for the tool call, structured as a JSON-like object.
+  // This matches the format used by major LLM providers (OpenAI, Anthropic).
+  google.protobuf.Struct arguments = 3;
+
+  // Metadata to guide the execution.
+  map<string, string> metadata = 4;
+}
+
+// ToolResponse captures the result of a tool execution.
+message ToolResponse {
+  // Matches the call_id from the ToolCall.
+  string call_id = 1;
+  
+  // The output of the tool, typically a JSON string or descriptive text.
+  string content = 2;
+  
+  // If true, indicates the tool execution failed.
+  bool is_error = 3;
+  
+  // Stable error code if is_error is true (e.g., "timeout", "not_found").
+  string error_code = 4;
+}
+
+// ToolDefinition is used by the Director to register available tools.
+message ToolDefinition {
+  string name = 1;
+  string description = 2;
+  // JSON Schema representing the expected arguments.
+  google.protobuf.Struct parameters = 3;
+}

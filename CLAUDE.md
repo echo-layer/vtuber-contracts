@@ -4,8 +4,8 @@ This file is the operational core for Claude. Gemini CLI and Claude MUST follow 
 
 ## 🎯 Architectural Intent
 - **Core Mission:** Become the canonical typed boundary for the vtuber program — every cross-service value crosses through here, internal and external developers consume the same generated SDKs.
-- **Primary Stack:** Rust, Protobuf (proto3), buf, tonic, ts-proto, mypy-protobuf
-- **System Nature:** vtuber-contracts is the build-time source of truth for all inter-service typed boundaries in the vtuber-* program. It defines proto3 schemas for messages such as ConversationDirective, VoiceProfile, and Persona, then runs codegen to publish a Rust crate, Python typed stubs (.pyi), and TypeScript declaration files consumed by every other vtuber-* repo and by the public SDK shipped through vtuber-api.
+- **Primary Stack:** Rust, Mojo (via Pixi), Protobuf (proto3), buf, tonic, ts-proto
+- **System Nature:** vtuber-contracts is the build-time source of truth for all inter-service typed boundaries in the vtuber-* program. It defines proto3 schemas for messages such as ConversationDirective, VoiceProfile, and Persona, then runs codegen to publish three consumer surfaces: a Rust crate (via tonic-build), a Mojo binding package (via Pixi + Python interop — see ADR-004), and TypeScript declarations (via ts-proto) consumed by every other vtuber-* repo and by the public SDK shipped through vtuber-api.
 
 ## 🧬 Automated Lifecycle Management
 1. **Research Sync:** When `./scripts/update_notebookLM.sh` is executed:

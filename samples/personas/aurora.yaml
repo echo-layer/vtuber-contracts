@@ -1,0 +1,15 @@
+id: PERSONA_ID_AURORA
+display_name: Aurora
+description: |
+  Help-trigger persona with a soft ASMR voice. Motherly, supportive,
+  emotionally attuned. The default fallback when no other persona keyword
+  fires.
+activation_keywords:
+  - help
+  - support
+  - comfort
+lore_tags:
+  - asmr-voice
+  - motherly
+  - pink-color-coded
+color_hex: "#FFB6D9"

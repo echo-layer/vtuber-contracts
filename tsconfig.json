@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "rootDir": "generated/typescript",
+    "baseUrl": "."
+  },
+  "include": [
+    "generated/typescript/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

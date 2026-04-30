@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package vtuber.v1;
+
+// PersonaId is the canonical enum of the five VTuber personas.
+// PERSONA_ID_UNSPECIFIED is the proto3 zero-value and MUST be treated as an
+// error by consumers — no persona should ever round-trip as unspecified.
+enum PersonaId {
+  PERSONA_ID_UNSPECIFIED = 0;
+  PERSONA_ID_VALORA = 1;
+  PERSONA_ID_AURORA = 2;
+  PERSONA_ID_AMETRA = 3;
+  PERSONA_ID_ASTRAEA = 4;
+  PERSONA_ID_ELDORA = 5;
+}
+
+// Persona captures every static attribute of a VTuber persona: display name,
+// trigger keywords, lore tags, brand colour. Runtime voice parameters live
+// in VoiceProfile; per-turn emotion lives in ConversationDirective. The
+// source of truth for Persona instances is a YAML file in vtuber-commons;
+// this proto is the shape that commons validates against on load.
+message Persona {
+  PersonaId id = 1;
+  string display_name = 2;
+  string description = 3;
+  // Trigger keywords that bias the Director toward this persona.
+  repeated string activation_keywords = 4;
+  // Freeform lore tags used for memory retrieval and character consistency.
+  repeated string lore_tags = 5;
+  // Brand colour as a CSS hex string (e.g. "#FF3C3C").
+  string color_hex = 6;
+}
