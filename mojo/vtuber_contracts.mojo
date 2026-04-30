@@ -80,8 +80,8 @@ struct ConversationDirective:
         persona_id: Int,
         text_prompt: String,
         voice_prompt: String = "",
-        emotion: Int = 1, # EMOTION_NEUTRAL
-        target_audio_format: Int = 1, # AUDIO_FORMAT_WAV
+        emotion: Int = 1,  # EMOTION_NEUTRAL
+        target_audio_format: Int = 1,  # AUDIO_FORMAT_WAV
         max_latency_ms: Int = 0,
     ) raises -> ConversationDirective:
         var pb = _conversation_module()

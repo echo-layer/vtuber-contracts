@@ -9,6 +9,7 @@ from std.python import Python
 from std.testing import assert_equal
 from vtuber_contracts import ConversationDirective
 
+
 def test_golden_roundtrip_from_rust() raises:
     # Use Python's open to read binary data
     var builtins = Python.import_module("builtins")
@@ -20,9 +21,11 @@ def test_golden_roundtrip_from_rust() raises:
 
     print("Checking Directive ID...")
     assert_equal(decoded.directive_id(), "test-golden-roundtrip-001")
-    
+
     print("Checking Persona ID...")
-    assert_equal(String(decoded.persona_id()), "1") # PersonaId.PERSONA_ID_VALORA
+    assert_equal(
+        String(decoded.persona_id()), "1"
+    )  # PersonaId.PERSONA_ID_VALORA
 
     print("Checking Thai Text Prompt...")
     # The exact string from Rust: "สวัสดี ยินดีที่ได้รู้จัก!"
@@ -32,15 +35,18 @@ def test_golden_roundtrip_from_rust() raises:
     assert_equal(decoded.voice_prompt(), "thai-accent-test")
 
     print("Checking Emotion...")
-    assert_equal(String(decoded.emotion()), "2") # Emotion.EMOTION_HAPPY
+    assert_equal(String(decoded.emotion()), "2")  # Emotion.EMOTION_HAPPY
 
     print("Checking Audio Format...")
-    assert_equal(String(decoded.target_audio_format()), "1") # AudioFormat.AUDIO_FORMAT_WAV
+    assert_equal(
+        String(decoded.target_audio_format()), "1"
+    )  # AudioFormat.AUDIO_FORMAT_WAV
 
     print("Checking Max Latency...")
     assert_equal(String(decoded.max_latency_ms()), "500")
 
     print("Golden Round-trip Verification: SUCCESS")
+
 
 def main() raises:
     test_golden_roundtrip_from_rust()
