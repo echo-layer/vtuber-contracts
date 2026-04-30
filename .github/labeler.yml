@@ -1,0 +1,31 @@
+# Pull Request Labeler configuration
+# Ref: https://github.com/actions/labeler
+
+feat:
+  - changed-files:
+    - any-glob-to-any-file: 'proto/**/*'
+    - any-glob-to-any-file: 'src/**/*'
+    - any-glob-to-any-file: 'mojo/**/*'
+
+fix:
+  - changed-files:
+    - any-glob-to-any-file: '.github/workflows/*'
+
+docs:
+  - changed-files:
+    - any-glob-to-any-file: '*.md'
+    - any-glob-to-any-file: 'locales/*.md'
+
+contracts:
+  - changed-files:
+    - any-glob-to-any-file: 'proto/**/*'
+
+rust:
+  - changed-files:
+    - any-glob-to-any-file: 'src/**/*'
+    - any-glob-to-any-file: 'Cargo.toml'
+
+mojo:
+  - changed-files:
+    - any-glob-to-any-file: 'mojo/**/*'
+    - any-glob-to-any-file: 'pixi.toml'
