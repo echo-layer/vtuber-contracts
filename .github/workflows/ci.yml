@@ -207,7 +207,7 @@ jobs:
           echo "skip=false" >> $GITHUB_OUTPUT
       - name: Breaking-change check
         if: steps.guard.outputs.skip == 'false' && steps.baseline.outputs.skip == 'false'
-        run: buf breaking --against ".git#ref=${{ steps.baseline.outputs.ref }}"
+        run: buf breaking proto --against ".git#ref=${{ steps.baseline.outputs.ref }},subdir=proto"
   
   buf-generate:
     name: buf Generate (dry-run verify)
@@ -224,7 +224,7 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup buf
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: bufbuild/buf-setup-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -235,7 +235,7 @@ jobs:
           # If generated artifacts are committed (they should be for lockstep
           # SDK consumers), any drift between proto changes and regeneration
           # must fail CI — a reviewer should not have to run buf generate by hand.
-          buf generate --template buf.gen.yaml
+          buf generate proto --template buf.gen.yaml
           if [ -d generated ] && ! git diff --quiet --exit-code -- generated/; then
             echo "::error::generated/ is out of sync with proto/. Run 'buf generate' locally and commit the result."
             git diff --stat -- generated/

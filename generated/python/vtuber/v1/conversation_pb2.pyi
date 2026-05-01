@@ -1,5 +1,3 @@
-import datetime
-
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from vtuber.v1 import persona_pb2 as _persona_pb2
 from vtuber.v1 import voice_profile_pb2 as _voice_profile_pb2
@@ -32,7 +30,7 @@ class ConversationDirective(_message.Message):
     target_audio_format: _voice_profile_pb2.AudioFormat
     max_latency_ms: int
     tool_calls: _containers.RepeatedCompositeFieldContainer[_tool_call_pb2.ToolCall]
-    def __init__(self, directive_id: _Optional[str] = ..., emitted_at: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., persona_id: _Optional[_Union[_persona_pb2.PersonaId, str]] = ..., text_prompt: _Optional[str] = ..., voice_prompt: _Optional[str] = ..., emotion: _Optional[_Union[_voice_profile_pb2.Emotion, str]] = ..., target_audio_format: _Optional[_Union[_voice_profile_pb2.AudioFormat, str]] = ..., max_latency_ms: _Optional[int] = ..., tool_calls: _Optional[_Iterable[_Union[_tool_call_pb2.ToolCall, _Mapping]]] = ...) -> None: ...
+    def __init__(self, directive_id: _Optional[str] = ..., emitted_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., persona_id: _Optional[_Union[_persona_pb2.PersonaId, str]] = ..., text_prompt: _Optional[str] = ..., voice_prompt: _Optional[str] = ..., emotion: _Optional[_Union[_voice_profile_pb2.Emotion, str]] = ..., target_audio_format: _Optional[_Union[_voice_profile_pb2.AudioFormat, str]] = ..., max_latency_ms: _Optional[int] = ..., tool_calls: _Optional[_Iterable[_Union[_tool_call_pb2.ToolCall, _Mapping]]] = ...) -> None: ...
 
 class DirectiveAck(_message.Message):
     __slots__ = ("directive_id", "accepted", "reject_reason")
@@ -42,7 +40,7 @@ class DirectiveAck(_message.Message):
     directive_id: str
     accepted: bool
     reject_reason: str
-    def __init__(self, directive_id: _Optional[str] = ..., accepted: _Optional[bool] = ..., reject_reason: _Optional[str] = ...) -> None: ...
+    def __init__(self, directive_id: _Optional[str] = ..., accepted: bool = ..., reject_reason: _Optional[str] = ...) -> None: ...
 
 class EmitDirectiveRequest(_message.Message):
     __slots__ = ("directive",)

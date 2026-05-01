@@ -3,6 +3,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         "proto/vtuber/v1/persona.proto",
         "proto/vtuber/v1/voice_profile.proto",
         "proto/vtuber/v1/conversation.proto",
+        "proto/vtuber/v1/tool_call.proto",
+        "proto/vtuber/v1/image.proto",
     ];
 
     for p in protos {

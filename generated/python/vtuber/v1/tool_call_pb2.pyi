@@ -36,7 +36,7 @@ class ToolResponse(_message.Message):
     content: str
     is_error: bool
     error_code: str
-    def __init__(self, call_id: _Optional[str] = ..., content: _Optional[str] = ..., is_error: _Optional[bool] = ..., error_code: _Optional[str] = ...) -> None: ...
+    def __init__(self, call_id: _Optional[str] = ..., content: _Optional[str] = ..., is_error: bool = ..., error_code: _Optional[str] = ...) -> None: ...
 
 class ToolDefinition(_message.Message):
     __slots__ = ("name", "description", "parameters")
