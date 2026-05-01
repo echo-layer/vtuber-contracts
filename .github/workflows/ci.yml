@@ -38,20 +38,20 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup protoc
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: arduino/setup-protoc@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Rust
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
       - name: Check formatting
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         run: cargo fmt --all --check
       - name: Clippy
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         run: cargo clippy --all-targets --all-features -- -D warnings
   
   rust-build-and-test:
@@ -69,15 +69,15 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup protoc
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: arduino/setup-protoc@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Rust
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: dtolnay/rust-toolchain@stable
       - name: Cache cargo
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: actions/cache@v4
         with:
           path: |
@@ -86,10 +86,10 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Build
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         run: cargo build
       - name: Test
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         run: cargo test
 
   
@@ -108,24 +108,32 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup Pixi
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: prefix-dev/setup-pixi@v0.8.1
         with:
           pixi-version: latest
           cache: true
       - name: Install dependencies (pixi install)
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         run: pixi install
-      - name: Mojo check (pixi run check)
-        if: steps.guard.outputs.skip != 'true'
+      - name: Populate generated/python (Mojo requirement)
+        if: steps.guard.outputs.skip == 'false'
         run: |
-          # The `check` task is expected to exist in every Mojo repo's pixi.toml
-          # and to run `mojo format --check` + any static analysis. If the task
-          # is missing the repo's build is incomplete — fail loudly, don't skip.
+          # Mojo tests depend on Python stubs. Ensure they exist.
+          # Using the same pinned buf version for consistency.
+          curl -sSL https://github.com/bufbuild/buf/releases/download/v1.68.4/buf-Linux-x86_64 -o buf
+          chmod +x buf
+          ./buf generate --template buf.gen.yaml
+      - name: Mojo check (pixi run check)
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/generated/python
           pixi run check
       - name: Mojo test (pixi run test)
-        if: steps.guard.outputs.skip != 'true'
-        run: pixi run test
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/generated/python
+          pixi run test
 
   
   buf-lint:
@@ -143,12 +151,13 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup buf
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: bufbuild/buf-setup-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: "1.68.4"
       - name: Lint
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         run: buf lint
   
   buf-breaking:
@@ -168,46 +177,43 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup buf
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         uses: bufbuild/buf-setup-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: "1.68.4"
       - name: Resolve baseline ref
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip == 'false'
         id: baseline
         run: |
-          # Pull requests: compare against the merge base with the PR target branch.
-          # Pushes to main/master: compare against the previous commit (HEAD~1) when
-          # one exists; on the very first commit, there is nothing to compare so
-          # skip the job rather than fail the initial bootstrap push.
           if [ -n "${{ github.base_ref }}" ]; then
             git fetch origin "${{ github.base_ref }}" --depth=50
             ref="origin/${{ github.base_ref }}"
-            # Verification: skip if the baseline has no proto directory
-            if ! git ls-tree -d "$ref" proto >/dev/null 2>&1; then
-              echo "::notice::Baseline ref $ref has no proto directory; skipping breaking-change check."
+            if ! git ls-tree -r "$ref" | grep -E 'buf\.yaml|buf\.yml' >/dev/null 2>&1; then
+              echo "::notice::Baseline ref $ref has no buf configuration; skipping."
               echo "skip=true" >> $GITHUB_OUTPUT
-              exit 0
+            else
+              echo "ref=$ref" >> $GITHUB_OUTPUT
+              echo "skip=false" >> $GITHUB_OUTPUT
             fi
           else
             if git rev-parse HEAD~1 >/dev/null 2>&1; then
               ref="HEAD~1"
-              if ! git ls-tree -d "$ref" proto >/dev/null 2>&1; then
-                echo "::notice::Baseline ref $ref has no proto directory; skipping breaking-change check."
+              if ! git ls-tree -r "$ref" | grep -E 'buf\.yaml|buf\.yml' >/dev/null 2>&1; then
+                echo "::notice::Baseline ref $ref has no buf configuration; skipping."
                 echo "skip=true" >> $GITHUB_OUTPUT
-                exit 0
+              else
+                echo "ref=$ref" >> $GITHUB_OUTPUT
+                echo "skip=false" >> $GITHUB_OUTPUT
               fi
             else
-              echo "::notice::No prior commit; skipping breaking-change check for initial commit."
+              echo "::notice::No prior commit; skipping."
               echo "skip=true" >> $GITHUB_OUTPUT
-              exit 0
             fi
           fi
-          echo "ref=$ref" >> $GITHUB_OUTPUT
-          echo "skip=false" >> $GITHUB_OUTPUT
       - name: Breaking-change check
         if: steps.guard.outputs.skip == 'false' && steps.baseline.outputs.skip == 'false'
-        run: buf breaking proto --against ".git#ref=${{ steps.baseline.outputs.ref }},subdir=proto"
+        run: buf breaking --against ".git#ref=${{ steps.baseline.outputs.ref }}"
   
   buf-generate:
     name: buf Generate (dry-run verify)
@@ -228,17 +234,13 @@ jobs:
         uses: bufbuild/buf-setup-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: "1.68.4"
       - name: Generate and verify no drift
         if: steps.guard.outputs.skip == 'false'
         run: |
-          # Regenerate into a scratch dir and diff against committed generated/.
-          # If generated artifacts are committed (they should be for lockstep
-          # SDK consumers), any drift between proto changes and regeneration
-          # must fail CI — a reviewer should not have to run buf generate by hand.
-          buf generate proto --template buf.gen.yaml
+          buf generate --template buf.gen.yaml
           if [ -d generated ] && ! git diff --quiet --exit-code -- generated/; then
             echo "::error::generated/ is out of sync with proto/. Run 'buf generate' locally and commit the result."
             git diff --stat -- generated/
             exit 1
           fi
-

@@ -24,14 +24,13 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17vtuber/v1/persona.proto\x12\tvtuber.v1\"\xdf\x01\n\x07Persona\x12$\n\x02id\x18\x01 \x01(\x0e\x32\x14.vtuber.v1.PersonaIdR\x02id\x12!\n\x0c\x64isplay_name\x18\x02 \x01(\tR\x0b\x64isplayName\x12 \n\x0b\x64\x65scription\x18\x03 \x01(\tR\x0b\x64\x65scription\x12/\n\x13\x61\x63tivation_keywords\x18\x04 \x03(\tR\x12\x61\x63tivationKeywords\x12\x1b\n\tlore_tags\x18\x05 \x03(\tR\x08loreTags\x12\x1b\n\tcolor_hex\x18\x06 \x01(\tR\x08\x63olorHex*\x9b\x01\n\tPersonaId\x12\x1a\n\x16PERSONA_ID_UNSPECIFIED\x10\x00\x12\x15\n\x11PERSONA_ID_VALORA\x10\x01\x12\x15\n\x11PERSONA_ID_AURORA\x10\x02\x12\x15\n\x11PERSONA_ID_AMETRA\x10\x03\x12\x16\n\x12PERSONA_ID_ASTRAEA\x10\x04\x12\x15\n\x11PERSONA_ID_ELDORA\x10\x05\x42\x62\n\rcom.vtuber.v1B\x0cPersonaProtoP\x01\xa2\x02\x03VXX\xaa\x02\tVtuber.V1\xca\x02\tVtuber\\V1\xe2\x02\x15Vtuber\\V1\\GPBMetadata\xea\x02\nVtuber::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17vtuber/v1/persona.proto\x12\tvtuber.v1\"\xdf\x01\n\x07Persona\x12$\n\x02id\x18\x01 \x01(\x0e\x32\x14.vtuber.v1.PersonaIdR\x02id\x12!\n\x0c\x64isplay_name\x18\x02 \x01(\tR\x0b\x64isplayName\x12 \n\x0b\x64\x65scription\x18\x03 \x01(\tR\x0b\x64\x65scription\x12/\n\x13\x61\x63tivation_keywords\x18\x04 \x03(\tR\x12\x61\x63tivationKeywords\x12\x1b\n\tlore_tags\x18\x05 \x03(\tR\x08loreTags\x12\x1b\n\tcolor_hex\x18\x06 \x01(\tR\x08\x63olorHex*\x9b\x01\n\tPersonaId\x12\x1a\n\x16PERSONA_ID_UNSPECIFIED\x10\x00\x12\x15\n\x11PERSONA_ID_VALORA\x10\x01\x12\x15\n\x11PERSONA_ID_AURORA\x10\x02\x12\x15\n\x11PERSONA_ID_AMETRA\x10\x03\x12\x16\n\x12PERSONA_ID_ASTRAEA\x10\x04\x12\x15\n\x11PERSONA_ID_ELDORA\x10\x05\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'vtuber.v1.persona_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'\n\rcom.vtuber.v1B\014PersonaProtoP\001\242\002\003VXX\252\002\tVtuber.V1\312\002\tVtuber\\V1\342\002\025Vtuber\\V1\\GPBMetadata\352\002\nVtuber::V1'
+  DESCRIPTOR._loaded_options = None
   _globals['_PERSONAID']._serialized_start=265
   _globals['_PERSONAID']._serialized_end=420
   _globals['_PERSONA']._serialized_start=39

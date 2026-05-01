@@ -25,14 +25,13 @@ _sym_db = _symbol_database.Default()
 from vtuber.v1 import persona_pb2 as vtuber_dot_v1_dot_persona__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dvtuber/v1/voice_profile.proto\x12\tvtuber.v1\x1a\x17vtuber/v1/persona.proto\"\xf5\x01\n\x0cVoiceProfile\x12\x33\n\npersona_id\x18\x01 \x01(\x0e\x32\x14.vtuber.v1.PersonaIdR\tpersonaId\x12\x1d\n\nbase_pitch\x18\x02 \x01(\x02R\tbasePitch\x12#\n\rspeaking_rate\x18\x03 \x01(\x02R\x0cspeakingRate\x12\x16\n\x06\x65nergy\x18\x04 \x01(\x02R\x06\x65nergy\x12\x1b\n\tstyle_tag\x18\x05 \x01(\tR\x08styleTag\x12\x1f\n\x0b\x61\x63\x63\x65nt_hint\x18\x06 \x01(\tR\naccentHint\x12\x16\n\x06quirks\x18\x07 \x03(\tR\x06quirks*n\n\x0b\x41udioFormat\x12\x1c\n\x18\x41UDIO_FORMAT_UNSPECIFIED\x10\x00\x12\x14\n\x10\x41UDIO_FORMAT_WAV\x10\x01\x12\x15\n\x11\x41UDIO_FORMAT_OPUS\x10\x02\x12\x14\n\x10\x41UDIO_FORMAT_MP3\x10\x03*\xb2\x01\n\x07\x45motion\x12\x17\n\x13\x45MOTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x45MOTION_NEUTRAL\x10\x01\x12\x11\n\rEMOTION_HAPPY\x10\x02\x12\x0f\n\x0b\x45MOTION_SAD\x10\x03\x12\x11\n\rEMOTION_ANGRY\x10\x04\x12\x13\n\x0f\x45MOTION_PLAYFUL\x10\x05\x12\x16\n\x12\x45MOTION_ANALYTICAL\x10\x06\x12\x15\n\x11\x45MOTION_ASMR_CALM\x10\x07\x42g\n\rcom.vtuber.v1B\x11VoiceProfileProtoP\x01\xa2\x02\x03VXX\xaa\x02\tVtuber.V1\xca\x02\tVtuber\\V1\xe2\x02\x15Vtuber\\V1\\GPBMetadata\xea\x02\nVtuber::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dvtuber/v1/voice_profile.proto\x12\tvtuber.v1\x1a\x17vtuber/v1/persona.proto\"\xf5\x01\n\x0cVoiceProfile\x12\x33\n\npersona_id\x18\x01 \x01(\x0e\x32\x14.vtuber.v1.PersonaIdR\tpersonaId\x12\x1d\n\nbase_pitch\x18\x02 \x01(\x02R\tbasePitch\x12#\n\rspeaking_rate\x18\x03 \x01(\x02R\x0cspeakingRate\x12\x16\n\x06\x65nergy\x18\x04 \x01(\x02R\x06\x65nergy\x12\x1b\n\tstyle_tag\x18\x05 \x01(\tR\x08styleTag\x12\x1f\n\x0b\x61\x63\x63\x65nt_hint\x18\x06 \x01(\tR\naccentHint\x12\x16\n\x06quirks\x18\x07 \x03(\tR\x06quirks*n\n\x0b\x41udioFormat\x12\x1c\n\x18\x41UDIO_FORMAT_UNSPECIFIED\x10\x00\x12\x14\n\x10\x41UDIO_FORMAT_WAV\x10\x01\x12\x15\n\x11\x41UDIO_FORMAT_OPUS\x10\x02\x12\x14\n\x10\x41UDIO_FORMAT_MP3\x10\x03*\xb2\x01\n\x07\x45motion\x12\x17\n\x13\x45MOTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x45MOTION_NEUTRAL\x10\x01\x12\x11\n\rEMOTION_HAPPY\x10\x02\x12\x0f\n\x0b\x45MOTION_SAD\x10\x03\x12\x11\n\rEMOTION_ANGRY\x10\x04\x12\x13\n\x0f\x45MOTION_PLAYFUL\x10\x05\x12\x16\n\x12\x45MOTION_ANALYTICAL\x10\x06\x12\x15\n\x11\x45MOTION_ASMR_CALM\x10\x07\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'vtuber.v1.voice_profile_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'\n\rcom.vtuber.v1B\021VoiceProfileProtoP\001\242\002\003VXX\252\002\tVtuber.V1\312\002\tVtuber\\V1\342\002\025Vtuber\\V1\\GPBMetadata\352\002\nVtuber::V1'
+  DESCRIPTOR._loaded_options = None
   _globals['_AUDIOFORMAT']._serialized_start=317
   _globals['_AUDIOFORMAT']._serialized_end=427
   _globals['_EMOTION']._serialized_start=430

@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package vtuber.v1;
+package vtuber_image.v1;
 
-// ImageGenerator service defines how vtuber-brain or vtuber-api requests
+// ImageGeneratorService defines how vtuber-brain or vtuber-api requests
 // images from vtuber-image.
-service ImageGenerator {
-  rpc Generate(GenerationRequest) returns (GenerationResponse);
+service ImageGeneratorService {
+  rpc Generate(GenerateRequest) returns (GenerateResponse);
 }
 
-message GenerationRequest {
+message GenerateRequest {
   // UUID or stable ID for the persona.
   string persona_id = 1;
   // Visual overrides for this specific generation.
@@ -21,9 +21,10 @@ message PersonaOverrides {
   string outfit = 3;
 }
 
-message GenerationResponse {
+message GenerateResponse {
   // URL or path to the generated image.
   string image_url = 1;
   // Key-value pairs for provenance and workflow metadata.
   map<string, string> metadata = 2;
 }
+

@@ -25,14 +25,13 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19vtuber/v1/tool_call.proto\x12\tvtuber.v1\x1a\x1cgoogle/protobuf/struct.proto\"\xea\x01\n\x08ToolCall\x12\x17\n\x07\x63\x61ll_id\x18\x01 \x01(\tR\x06\x63\x61llId\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x35\n\targuments\x18\x03 \x01(\x0b\x32\x17.google.protobuf.StructR\targuments\x12=\n\x08metadata\x18\x04 \x03(\x0b\x32!.vtuber.v1.ToolCall.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\"{\n\x0cToolResponse\x12\x17\n\x07\x63\x61ll_id\x18\x01 \x01(\tR\x06\x63\x61llId\x12\x18\n\x07\x63ontent\x18\x02 \x01(\tR\x07\x63ontent\x12\x19\n\x08is_error\x18\x03 \x01(\x08R\x07isError\x12\x1d\n\nerror_code\x18\x04 \x01(\tR\terrorCode\"\x7f\n\x0eToolDefinition\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12 \n\x0b\x64\x65scription\x18\x02 \x01(\tR\x0b\x64\x65scription\x12\x37\n\nparameters\x18\x03 \x01(\x0b\x32\x17.google.protobuf.StructR\nparametersBc\n\rcom.vtuber.v1B\rToolCallProtoP\x01\xa2\x02\x03VXX\xaa\x02\tVtuber.V1\xca\x02\tVtuber\\V1\xe2\x02\x15Vtuber\\V1\\GPBMetadata\xea\x02\nVtuber::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19vtuber/v1/tool_call.proto\x12\tvtuber.v1\x1a\x1cgoogle/protobuf/struct.proto\"\xea\x01\n\x08ToolCall\x12\x17\n\x07\x63\x61ll_id\x18\x01 \x01(\tR\x06\x63\x61llId\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x35\n\targuments\x18\x03 \x01(\x0b\x32\x17.google.protobuf.StructR\targuments\x12=\n\x08metadata\x18\x04 \x03(\x0b\x32!.vtuber.v1.ToolCall.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\"{\n\x0cToolResponse\x12\x17\n\x07\x63\x61ll_id\x18\x01 \x01(\tR\x06\x63\x61llId\x12\x18\n\x07\x63ontent\x18\x02 \x01(\tR\x07\x63ontent\x12\x19\n\x08is_error\x18\x03 \x01(\x08R\x07isError\x12\x1d\n\nerror_code\x18\x04 \x01(\tR\terrorCode\"\x7f\n\x0eToolDefinition\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12 \n\x0b\x64\x65scription\x18\x02 \x01(\tR\x0b\x64\x65scription\x12\x37\n\nparameters\x18\x03 \x01(\x0b\x32\x17.google.protobuf.StructR\nparametersb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'vtuber.v1.tool_call_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'\n\rcom.vtuber.v1B\rToolCallProtoP\001\242\002\003VXX\252\002\tVtuber.V1\312\002\tVtuber\\V1\342\002\025Vtuber\\V1\\GPBMetadata\352\002\nVtuber::V1'
+  DESCRIPTOR._loaded_options = None
   _globals['_TOOLCALL_METADATAENTRY']._loaded_options = None
   _globals['_TOOLCALL_METADATAENTRY']._serialized_options = b'8\001'
   _globals['_TOOLCALL']._serialized_start=71

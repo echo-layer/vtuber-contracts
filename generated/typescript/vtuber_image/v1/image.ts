@@ -2,12 +2,12 @@
 // versions:
 //   protoc-gen-ts_proto  v2.11.6
 //   protoc               unknown
-// source: vtuber/v1/image.proto
+// source: vtuber_image/v1/image.proto
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
-export const protobufPackage = "vtuber.v1";
+export const protobufPackage = "vtuber_image.v1";
 
 export interface GenerateRequest {
   /** UUID or stable ID for the persona. */
@@ -406,7 +406,7 @@ export const GenerateResponse_MetadataEntry: MessageFns<GenerateResponse_Metadat
 export type ImageGeneratorServiceDefinition = typeof ImageGeneratorServiceDefinition;
 export const ImageGeneratorServiceDefinition = {
   name: "ImageGeneratorService",
-  fullName: "vtuber.v1.ImageGeneratorService",
+  fullName: "vtuber_image.v1.ImageGeneratorService",
   methods: {
     generate: {
       name: "Generate",

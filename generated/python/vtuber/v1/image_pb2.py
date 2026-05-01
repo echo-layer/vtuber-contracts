@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15vtuber/v1/image.proto\x12\tvtuber.v1\"m\n\x11GenerationRequest\x12\x1d\n\npersona_id\x18\x01 \x01(\tR\tpersonaId\x12\x39\n\toverrides\x18\x02 \x01(\x0b\x32\x1b.vtuber.v1.PersonaOverridesR\toverrides\"f\n\x10PersonaOverrides\x12\x1d\n\nhair_style\x18\x01 \x01(\tR\thairStyle\x12\x1b\n\teye_color\x18\x02 \x01(\tR\x08\x65yeColor\x12\x16\n\x06outfit\x18\x03 \x01(\tR\x06outfit\"\xb7\x01\n\x12GenerationResponse\x12\x1b\n\timage_url\x18\x01 \x01(\tR\x08imageUrl\x12G\n\x08metadata\x18\x02 \x03(\x0b\x32+.vtuber.v1.GenerationResponse.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32Y\n\x0eImageGenerator\x12G\n\x08Generate\x12\x1c.vtuber.v1.GenerationRequest\x1a\x1d.vtuber.v1.GenerationResponseB`\n\rcom.vtuber.v1B\nImageProtoP\x01\xa2\x02\x03VXX\xaa\x02\tVtuber.V1\xca\x02\tVtuber\\V1\xe2\x02\x15Vtuber\\V1\\GPBMetadata\xea\x02\nVtuber::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15vtuber/v1/image.proto\x12\tvtuber.v1\"k\n\x0fGenerateRequest\x12\x1d\n\npersona_id\x18\x01 \x01(\tR\tpersonaId\x12\x39\n\toverrides\x18\x02 \x01(\x0b\x32\x1b.vtuber.v1.PersonaOverridesR\toverrides\"f\n\x10PersonaOverrides\x12\x1d\n\nhair_style\x18\x01 \x01(\tR\thairStyle\x12\x1b\n\teye_color\x18\x02 \x01(\tR\x08\x65yeColor\x12\x16\n\x06outfit\x18\x03 \x01(\tR\x06outfit\"\xb3\x01\n\x10GenerateResponse\x12\x1b\n\timage_url\x18\x01 \x01(\tR\x08imageUrl\x12\x45\n\x08metadata\x18\x02 \x03(\x0b\x32).vtuber.v1.GenerateResponse.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32\\\n\x15ImageGeneratorService\x12\x43\n\x08Generate\x12\x1a.vtuber.v1.GenerateRequest\x1a\x1b.vtuber.v1.GenerateResponseB`\n\rcom.vtuber.v1B\nImageProtoP\x01\xa2\x02\x03VXX\xaa\x02\tVtuber.V1\xca\x02\tVtuber\\V1\xe2\x02\x15Vtuber\\V1\\GPBMetadata\xea\x02\nVtuber::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,16 +32,16 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'vtuber.v1.image_pb2', _glob
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\rcom.vtuber.v1B\nImageProtoP\001\242\002\003VXX\252\002\tVtuber.V1\312\002\tVtuber\\V1\342\002\025Vtuber\\V1\\GPBMetadata\352\002\nVtuber::V1'
-  _globals['_GENERATIONRESPONSE_METADATAENTRY']._loaded_options = None
-  _globals['_GENERATIONRESPONSE_METADATAENTRY']._serialized_options = b'8\001'
-  _globals['_GENERATIONREQUEST']._serialized_start=36
-  _globals['_GENERATIONREQUEST']._serialized_end=145
-  _globals['_PERSONAOVERRIDES']._serialized_start=147
-  _globals['_PERSONAOVERRIDES']._serialized_end=249
-  _globals['_GENERATIONRESPONSE']._serialized_start=252
-  _globals['_GENERATIONRESPONSE']._serialized_end=435
-  _globals['_GENERATIONRESPONSE_METADATAENTRY']._serialized_start=376
-  _globals['_GENERATIONRESPONSE_METADATAENTRY']._serialized_end=435
-  _globals['_IMAGEGENERATOR']._serialized_start=437
-  _globals['_IMAGEGENERATOR']._serialized_end=526
+  _globals['_GENERATERESPONSE_METADATAENTRY']._loaded_options = None
+  _globals['_GENERATERESPONSE_METADATAENTRY']._serialized_options = b'8\001'
+  _globals['_GENERATEREQUEST']._serialized_start=36
+  _globals['_GENERATEREQUEST']._serialized_end=143
+  _globals['_PERSONAOVERRIDES']._serialized_start=145
+  _globals['_PERSONAOVERRIDES']._serialized_end=247
+  _globals['_GENERATERESPONSE']._serialized_start=250
+  _globals['_GENERATERESPONSE']._serialized_end=429
+  _globals['_GENERATERESPONSE_METADATAENTRY']._serialized_start=370
+  _globals['_GENERATERESPONSE_METADATAENTRY']._serialized_end=429
+  _globals['_IMAGEGENERATORSERVICE']._serialized_start=431
+  _globals['_IMAGEGENERATORSERVICE']._serialized_end=523
 # @@protoc_insertion_point(module_scope)
