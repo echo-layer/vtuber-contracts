@@ -1,0 +1,33 @@
+[workspace]
+name = "vtuber-contracts"
+version = "0.1.0"
+description = "Typed Mojo + Rust + TypeScript bindings for the vtuber-* program, generated from proto3 schemas."
+authors = ["echo-layer <mr.bt1590@gmail.com>"]
+channels = [
+    "https://conda.modular.com/max-nightly/",
+    "conda-forge",
+]
+platforms = ["linux-64", "osx-arm64"]
+
+# Mojo has no native protobuf codegen as of Modular's 2026 tooling survey;
+# the proto3 → Mojo path goes through Python interop (see ADR-004). `mojo`
+# and `python` + `protobuf` must travel together for the Mojo bindings to
+# resolve `import vtuber.v1.persona_pb2` at runtime.
+[dependencies]
+mojo = "*"
+python = ">=3.11,<3.13"
+
+[pypi-dependencies]
+# protobuf is pinned to PyPI (not conda) so its runtime version stays
+# in lockstep with the gencode emitted by buf's remote Python plugin.
+# A conda-forge-pinned protobuf trailed buf's gencode by a major version
+# and broke `import vtuber.v1.persona_pb2` at runtime; PyPI tracks
+# Google's release line directly. mypy-protobuf is the .pyi stub
+# generator used by buf and lives here for the same reason.
+protobuf = ">=5"
+mypy-protobuf = ">=3.5"
+
+[tasks]
+check = { cmd = "mojo format mojo/ && git diff --exit-code -- mojo/ || (echo 'mojo format produced changes — commit them'; exit 1)", description = "Static-check Mojo formatting. Fails if `mojo format` would modify any committed file." }
+test = { cmd = "PYTHONPATH=generated/python mojo run -I mojo mojo/tests/test_roundtrip.mojo", description = "Run Mojo integration test that consumes Python-generated proto stubs. Mojo 1.0.0b1 has no `mojo test` subcommand; the test file's main() runs the asserts directly." }
+generate = { cmd = "buf generate", description = "Regenerate Python + TypeScript bindings from proto/. Requires buf on PATH." }

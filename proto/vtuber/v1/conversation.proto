@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package vtuber.v1;
+
+import "google/protobuf/timestamp.proto";
+import "vtuber/v1/persona.proto";
+import "vtuber/v1/voice_profile.proto";
+import "vtuber/v1/tool_call.proto";
+
+// ConversationDirective is the single message vtuber-brain (the Director)
+// emits on every turn and vtuber-voice (the Performer) consumes. Per
+// ADR-002 this is the only protocol boundary between the two services.
+// Full audio streaming back to the Director is out of scope for v0.1.
+message ConversationDirective {
+  // Opaque per-turn id. Consumers MUST NOT parse it. UUIDv7 preferred.
+  string directive_id = 1;
+  // Emission time per the Director's clock.
+  google.protobuf.Timestamp emitted_at = 2;
+  // The persona to wear for this turn.
+  PersonaId persona_id = 3;
+  // Text the Performer should speak. The Director owns all LLM
+  // post-processing (sanitization, length trim) before emitting.
+  string text_prompt = 4;
+  // Optional per-turn voice priming seed. When empty, the Performer
+  // falls back to the persona's registered VoiceProfile in vtuber-commons.
+  string voice_prompt = 5;
+  // Per-turn emotion override. UNSPECIFIED means "use neutral".
+  Emotion emotion = 6;
+  // Requested output audio format.
+  AudioFormat target_audio_format = 7;
+  // Soft upper bound on total synthesis latency in milliseconds.
+  // 0 means unspecified — the Performer applies its default SLO.
+  uint32 max_latency_ms = 8;
+
+  // Decentralized Tool Calls: These are intended for the Performer (Voice/Live2D)
+  // to execute in sync with the speech (e.g., "animate", "play_sound_effect").
+  repeated ToolCall tool_calls = 9;
+}
+
+// DirectiveAck is the Performer's synchronous reply to EmitDirective.
+// A negative ack carries a stable short code; consumers branch on the
+// code, not on human-readable text.
+message DirectiveAck {
+  string directive_id = 1;
+  bool accepted = 2;
+  // Stable short code when accepted is false:
+  // "persona_unknown", "format_unsupported", "queue_full",
+  // "voice_profile_missing". Empty when accepted is true.
+  string reject_reason = 3;
+}
+
+// EmitDirectiveRequest wraps ConversationDirective for the rpc surface.
+// The wrapper exists because buf STANDARD lint requires rpc request/response
+// types to be named after the rpc — and because wrappers leave room for
+// per-rpc metadata (idempotency keys, request tracing) to be added without
+// touching the domain message.
+message EmitDirectiveRequest {
+  ConversationDirective directive = 1;
+}
+
+// EmitDirectiveResponse wraps DirectiveAck for the same reasons.
+message EmitDirectiveResponse {
+  DirectiveAck ack = 1;
+}
+
+// DirectorService is the minimal service surface needed to validate tonic /
+// buf service codegen end-to-end for v0.1. The full audio streaming rpc
+// lives on a separate service added in the brain↔voice slice.
+service DirectorService {
+  rpc EmitDirective(EmitDirectiveRequest) returns (EmitDirectiveResponse);
+}

@@ -1,0 +1,14 @@
+version: v2
+managed:
+  enabled: false
+plugins:
+  - remote: buf.build/protocolbuffers/python:v30.0
+    out: generated/python
+  - remote: buf.build/protocolbuffers/pyi:v30.0
+    out: generated/python
+  - remote: buf.build/community/stephenh-ts-proto:v2.11.6
+    out: generated/typescript
+    opt:
+      - esModuleInterop=true
+      - outputServices=generic-definitions
+      - env=node

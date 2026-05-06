@@ -1,0 +1,33 @@
+# Build artifacts
+target/
+dist/
+build/
+*.bin
+golden_directive.bin
+
+# Dependencies
+node_modules/
+.pixi/
+
+# Rust
+Cargo.lock
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+*.egg-info/
+generated/**/__pycache__/
+
+# Mojo
+.mojo/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store

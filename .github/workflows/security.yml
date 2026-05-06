@@ -47,6 +47,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
+      actions: read
     steps:
       - uses: actions/checkout@v4
       - name: Skip if no Cargo.toml
@@ -76,7 +77,52 @@ jobs:
         continue-on-error: true
       - name: Upload SARIF
         if: steps.guard.outputs.skip != 'true'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: results.sarif
+        continue-on-error: true # Allow CI to pass even if GitHub Advanced Security is not enabled
+
+  
+  mojo-security:
+    name: Mojo Security Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mojo static analysis (skipped until mojoproject.toml exists)
+        env:
+          MODULAR_AUTH: ${{ secrets.MODULAR_AUTH_TOKEN }}
+        run: |
+          if [ ! -f mojoproject.toml ]; then
+            echo "::notice::No mojoproject.toml yet; skipping Mojo static analysis."
+            exit 0
+          fi
+          curl -fsSL https://get.modular.com -o install-modular.sh
+          sh install-modular.sh
+          export PATH="$HOME/.modular/bin:$PATH"
+          modular install mojo
+          mojo check .
+
+  
+  buf-schema-baseline:
+    name: buf Schema Security Baseline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip if no buf.yaml
+        id: guard
+        run: |
+          if [ ! -f buf.yaml ] && [ ! -f buf.yml ]; then
+            echo "::notice::No buf.yaml yet; skipping schema security baseline."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Setup buf
+        if: steps.guard.outputs.skip != 'true'
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lint schema (security pass)
+        if: steps.guard.outputs.skip != 'true'
+        run: buf lint
 
