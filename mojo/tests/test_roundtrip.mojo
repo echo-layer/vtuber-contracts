@@ -26,17 +26,23 @@ def test_persona_roundtrip() raises:
 
 def test_conversation_directive_roundtrip() raises:
     var ametra_id = 3  # PersonaId.PERSONA_ID_AMETRA
+    # Using full arguments to avoid Mojo 24.x interop issues with defaults
     var original = ConversationDirective.new(
         "018f4e2b-4a8c-7b1f-9c5e-2d3a4b5c6d7e",
         ametra_id,
-        "Let me analyze that for a moment...",
+        "สวัสดี ยินดีที่ได้รู้จัก!",  # Thai Unicode verification
+        "",  # voice_prompt
+        1,  # emotion neutral
+        1,  # audio format wav
+        500,  # latency
     )
     var bytes = original.serialize()
     var decoded = ConversationDirective.parse(bytes)
     assert_equal(
         decoded.text_prompt(),
-        "Let me analyze that for a moment...",
+        "สวัสดี ยินดีที่ได้รู้จัก!",
     )
+    assert_equal(String(decoded.max_latency_ms()), "500")
 
 
 def main() raises:
