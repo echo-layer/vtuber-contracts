@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-active-success)](./)
 
-![Rust LOD](https://img.shields.io/badge/Rust_LOD-187-dea584.svg) ![Mojo LOD](https://img.shields.io/badge/Mojo_LOD-176-CC0000.svg) ![Total LOD](https://img.shields.io/badge/Total_LOD-3476-brightgreen.svg)
+![Rust LOD](https://img.shields.io/badge/Rust_LOD-187-dea584.svg) ![Mojo LOD](https://img.shields.io/badge/Mojo_LOD-176-CC0000.svg) ![Total LOD](https://img.shields.io/badge/Total_LOD-4745-brightgreen.svg)
 
 [![Rust](https://img.shields.io/badge/Rust-dea584?logo=rust&logoColor=white)](https://www.rust-lang.org/) [![Mojo](https://img.shields.io/badge/Mojo-CC0000?logo=mojo&logoColor=white)](https://www.modular.com/mojo) [![buf](https://img.shields.io/badge/buf-151C3B)](https://buf.build/) [![Pixi](https://img.shields.io/badge/Pixi-F4A02D)](https://pixi.sh/)
 
