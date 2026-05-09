@@ -22,7 +22,6 @@ jobs:
           echo "rust=${{ steps.stacks.outputs.rust }} python=${{ steps.stacks.outputs.python }} node=${{ steps.stacks.outputs.node }}"
           echo "OK — repo structure verified. Stack-specific jobs below run only if their manifest exists."
 
-  
   rust-lint:
     name: Rust Lint & Format
     runs-on: ubuntu-latest
@@ -53,7 +52,7 @@ jobs:
       - name: Clippy
         if: steps.guard.outputs.skip == 'false'
         run: cargo clippy --all-targets --all-features -- -D warnings
-  
+
   rust-build-and-test:
     name: Rust Build & Test
     runs-on: ubuntu-latest
@@ -92,7 +91,6 @@ jobs:
         if: steps.guard.outputs.skip == 'false'
         run: cargo test
 
-  
   mojo-build:
     name: Mojo Build & Test
     runs-on: ubuntu-latest
@@ -120,7 +118,6 @@ jobs:
         if: steps.guard.outputs.skip == 'false'
         run: |
           # Mojo tests depend on Python stubs. Ensure they exist.
-          # Using the same pinned buf version for consistency.
           curl -sSL https://github.com/bufbuild/buf/releases/download/v1.68.4/buf-Linux-x86_64 -o buf
           chmod +x buf
           ./buf generate --template buf.gen.yaml
@@ -135,7 +132,6 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)/generated/python
           pixi run test
 
-  
   buf-lint:
     name: buf Lint
     runs-on: ubuntu-latest
@@ -159,7 +155,7 @@ jobs:
       - name: Lint
         if: steps.guard.outputs.skip == 'false'
         run: buf lint
-  
+
   buf-breaking:
     name: buf Breaking-Change Gate
     runs-on: ubuntu-latest
@@ -214,7 +210,7 @@ jobs:
       - name: Breaking-change check
         if: steps.guard.outputs.skip == 'false' && steps.baseline.outputs.skip == 'false'
         run: buf breaking --against ".git#ref=${{ steps.baseline.outputs.ref }}"
-  
+
   buf-generate:
     name: buf Generate (dry-run verify)
     runs-on: ubuntu-latest
