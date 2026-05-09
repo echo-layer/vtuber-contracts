@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package vtuber.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+// PersonaAssetSchema defines the configuration for a single VTuber persona.
+// Used for validation of personas/*.toml files in vtuber-commons.
+message PersonaAssetSchema {
+  message Identity {
+    string id = 1;
+    string name = 2;
+    string version = 3;
+    string description = 4;
+  }
+  
+  message Personality {
+    repeated string traits = 1;
+    string language = 2;
+    string tone = 3;
+  }
+  
+  message Assets {
+    string voice_profile_id = 1;
+    string avatar_id = 2;
+  }
+  
+  message Metadata {
+    google.protobuf.Timestamp created_at = 1;
+    google.protobuf.Timestamp updated_at = 2;
+    repeated string tags = 3;
+  }
+
+  Identity identity = 1;
+  Personality personality = 2;
+  Assets assets = 3;
+  Metadata metadata = 4;
+}
+
+// VoiceProfileSchema defines the configuration for a voice generation profile.
+// Used for validation of voice_profiles/*.json files in vtuber-commons.
+message VoiceProfileSchema {
+  enum Provider {
+    PROVIDER_UNSPECIFIED = 0;
+    PROVIDER_ELEVENLABS = 1;
+    PROVIDER_AZURE = 2;
+    PROVIDER_OPENAI = 3;
+    PROVIDER_COQUI = 4;
+  }
+
+  string id = 1;
+  string name = 2;
+  Provider provider = 3;
+  string voice_id = 4;
+  google.protobuf.Struct settings = 5;
+  google.protobuf.Struct metadata = 6;
+}
+
+// ModelRegistrySchema defines the allowed models and their configurations.
+// Used for validation of models.yaml files in vtuber-commons.
+message ModelRegistrySchema {
+  message LLMModel {
+    string id = 1;
+    string provider = 2;
+    uint32 max_tokens = 3;
+    float temperature = 4;
+  }
+
+  message AllowedModel {
+    enum Type {
+      TYPE_UNSPECIFIED = 0;
+      TYPE_CHECKPOINT = 1;
+      TYPE_LORA = 2;
+      TYPE_EMBEDDING = 3;
+    }
+    string id = 1;
+    Type type = 2;
+    string version = 3;
+  }
+
+  repeated LLMModel llm_models = 1;
+  repeated AllowedModel allowed_models = 2;
+}
