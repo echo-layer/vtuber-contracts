@@ -8,6 +8,7 @@
 pub mod vtuber {
     pub mod v1 {
         tonic::include_proto!("vtuber.v1");
+        include!(concat!(env!("OUT_DIR"), "/vtuber.v1.serde.rs"));
     }
 }
 
