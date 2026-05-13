@@ -49,3 +49,66 @@
 
 - [ ] **Step 1: Run full test suite (cargo test, pixi run test, buf lint)**
 - [ ] **Step 2: Update STRUCTURE.tree and push changes**
+
+---
+
+### Task 6: Implement Publishing Workflow
+
+**Files:**
+- Create: `.github/workflows/publish.yml`
+
+- [ ] **Step 1: Create publish.yml with Multi-Registry support**
+
+```yaml
+name: Publish SDKs
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish-rust:
+    name: Publish Rust Crate
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Map Kellnr Host
+        run: |
+          if sudo -n true 2>/dev/null; then
+            echo "192.168.1.2 kellnr.cntm.labs" | sudo tee -a /etc/hosts
+          fi
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Setup Protoc
+        uses: arduino/setup-protoc@v3
+      - name: Publish to Kellnr
+        env:
+          SHARED_TOKEN: ${{ secrets.KELLNR_TOKEN }}
+        run: |
+          cargo login --registry vtuber-registry "$SHARED_TOKEN"
+          cargo publish --registry vtuber-registry --allow-dirty
+
+  publish-python:
+    name: Publish Python Stubs
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Map Kellnr Host
+        run: |
+          if sudo -n true 2>/dev/null; then
+            echo "192.168.1.2 kellnr.cntm.labs" | sudo tee -a /etc/hosts
+          fi
+      - name: Setup buf
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          version: "1.68.4"
+      - name: Generate and Publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.KELLNR_TOKEN }}
+          TWINE_REPOSITORY_URL: http://kellnr.cntm.labs:31500/api/v1/pypi
+        run: |
+          buf generate
+          # TODO: Add python packaging logic here if needed
