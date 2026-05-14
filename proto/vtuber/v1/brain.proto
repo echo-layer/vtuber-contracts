@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package vtuber.v1;
+
+// BrainService handles the pushing of session context to the central brain.
+service BrainService {
+  // PushContext allows upstream services to send user messages and metadata.
+  rpc PushContext (PushContextRequest) returns (PushContextResponse);
+}
+
+message PushContextRequest {
+  string session_id = 1;
+  string user_id = 2;
+  string message = 3;
+  // metadata for additional context-specific information.
+  map<string, string> metadata = 4;
+}
+
+message PushContextResponse {
+  bool accepted = 1;
+  string request_id = 2;
+}
