@@ -10,6 +10,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         "proto/vtuber/v1/persona.proto",
         "proto/vtuber/v1/tool_call.proto",
         "proto/vtuber/v1/assets.proto",
+        "proto/vtuber/v1/brain.proto",
     ];
 
     tonic_build::configure()
