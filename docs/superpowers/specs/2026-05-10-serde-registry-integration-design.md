@@ -29,3 +29,25 @@ This specification details the implementation of Serde support for all generated
 
 ## ⚖️ Future Considerations
 - Transitioning from manual file copying to BSR (Buf Schema Registry) once the initial local registry flow is stabilized.
+
+## 🚀 Phase 2: Automated SDK Publishing (Issue #4)
+
+### 1. Workflow Architecture
+- **Trigger:** Git tags matching `v*`.
+- **Runner:** `self-hosted` (local lab network).
+- **Environment:** Manual mapping of `192.168.1.2` to `kellnr.cntm.labs` within the workflow.
+
+### 2. Multi-Language Publishing Logic
+- **Rust:** Uses native `cargo publish` with the pre-configured `vtuber-registry`.
+- **Python:** 
+    - Generates code via `buf`.
+    - Packages as a wheel.
+    - Publishes to Kellnr PyPI via `twine`.
+- **TypeScript:**
+    - Generates code via `buf`.
+    - Publishes to Kellnr NPM via `npm publish`.
+- **GitHub Packages:** Parallel steps to publish to `ghcr.io` or GitHub's language-specific registries as a fallback.
+
+### 3. Secrets Required
+- `KELLNR_TOKEN`: For private registry authentication.
+- `GITHUB_TOKEN`: Provided automatically by GitHub Actions.

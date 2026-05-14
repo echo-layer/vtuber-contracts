@@ -1,0 +1,45 @@
+name: Publish SDKs
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish-rust:
+    name: Publish Rust Crate
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Map Kellnr Host
+        run: |
+          if sudo -n true 2>/dev/null; then
+            echo "192.168.1.2 kellnr.cntm.labs" | sudo tee -a /etc/hosts
+          fi
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Setup Protoc
+        uses: arduino/setup-protoc@v3
+      - name: Publish to Kellnr
+        env:
+          SHARED_TOKEN: ${{ secrets.KELLNR_TOKEN }}
+        run: |
+          cargo login --registry vtuber-registry "$SHARED_TOKEN"
+          cargo publish --registry vtuber-registry --allow-dirty
+
+  generate-interop-files:
+    name: Generate Interop Files (Non-Publish)
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup buf
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          version: "1.68.4"
+      - name: Generate Python and TS
+        run: |
+          buf generate --template buf.gen.yaml
+          echo "✅ Interop files generated in 'generated/' folder."
+          echo "ℹ️ Per architectural decision: Only Rust is published to Kellnr."
+          echo "ℹ️ Python/TS are used via cross-repo interop/submodules if needed."
